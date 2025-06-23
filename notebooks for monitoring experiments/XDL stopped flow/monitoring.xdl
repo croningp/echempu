@@ -1,0 +1,89 @@
+<Synthesis>
+  <Hardware>
+    <Component id="reactor" type="reactor" />
+    <Component id="flask_acetone" type="flask" />
+  </Hardware>
+  <Reagents>
+    <Reagent name="acetone" role="reagent" />
+  </Reagents>
+  <Procedure>
+    <Reaction>
+      <ResetHandling
+        solvent="acetone"
+      />
+      <FlowCellSampling
+        sample_vessel="flask_acetone"
+        analysis_node="nmr"
+        exp_code="check_acetone"
+        recycle_sample="False"
+        aspiration_speed="100"
+        priming_cycles="3"
+      />
+      <Repeat>
+        <FlowCellSampling
+          sample_vessel="reactor"
+          analysis_node="nmr"
+          exp_code="shim_acetone"
+          aspiration_speed="20"
+          method_props='{
+            "protocol": "SHIM 1H SAMPLE",
+            "protocol_options": {
+                "Mode": "Manual",
+                "manualStart": -25,
+                "manualEnd": 35,
+                "SampleReference": 1.6,
+                "Shim": "QuickShim1"
+            }
+          }'
+        />
+        <Repeat repeats="10">
+          <FlowCellSampling
+            sample_vessel="reactor"
+            analysis_node="nmr"
+            exp_code="MGS255"
+            aspiration_speed="20"
+            priming_cycles="1"
+            method_props="{
+                  'protocol': '1D WET SUP',
+                  'protocol_options': {
+                    'Mode': 'Auto',
+                    'autoStart': 20,
+                    'autoEnd': -10,
+                    'CorrectionFactor': 1.04,
+                    'Dummy': 0,
+                    'Number': 8,
+                    'AcquisitionTime': 1.6,
+                    'RepetitionTime': 30
+                  }
+                }"
+          />
+          <ProcessNMR
+              method='jaccard'
+              nmr='nmr'
+              reference_signal='1.6'
+              reference_type='highest'
+              ppm_range='12.0,0.0'
+              solvent_signals='[1.6]'
+              exp_code='MGS255'
+              />
+        <Monitor
+            exp_code='MGS255'
+            target='nmr'
+            quantity='jaccard'
+            min='0.0001'
+            read_slope='True'
+            number_of_points_for_slope='5'
+            />          
+        </Repeat>
+        <Monitor
+            exp_code='MGS255'
+            target='nmr'
+            quantity='jaccard'
+            min='0.0001'
+            read_slope='True'
+            number_of_points_for_slope='5'
+            />
+      </Repeat>
+    </Reaction>
+  </Procedure>
+</Synthesis>

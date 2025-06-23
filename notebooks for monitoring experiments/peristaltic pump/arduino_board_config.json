@@ -1,0 +1,19 @@
+{
+  "simulation": false,
+  "ios": [
+    {
+      "type": "serial",
+      "port": "COM3"
+    }
+  ],
+  "devices": {    
+    "peri": {
+      "command_id": "E0",
+      "config": {
+        "enabled_acceleration": false,
+        "speed": 10000,
+        "max_speed": 10000
+      }
+    }
+  }
+}
