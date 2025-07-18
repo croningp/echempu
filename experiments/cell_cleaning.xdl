@@ -1,0 +1,37 @@
+<XDL>
+    
+    <Blueprint id="cell_cleaning">
+
+    <Hardware>
+        <Component id="reactor"          type="reactor" />
+        <Component id="waste"            type="flask" />
+    </Hardware>
+
+    <Parameters>
+
+    </Parameters>
+
+    <Reagents>
+        <Reagent    id="acetone"    name="acetone"     role='solvent'   />     
+        <Reagent    id="water"      name="water"       role='solvent'   />
+    </Reagents>
+
+    <Procedure>
+
+        <Transfer 
+            from_vessel="reactor"
+            to_vessel="waste"
+            volume="8 mL"
+            aspiration_speed="100"
+            move_speed="100"
+            dispense_speed="100"/>
+        <CleanVessel
+            vessel="reactor"
+            solvent="water"
+            volume="8 mL"
+            dry="False"
+            repeats="2"/>
+            
+    </Procedure>
+</Blueprint>
+</XDL> 

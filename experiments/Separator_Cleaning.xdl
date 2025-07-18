@@ -1,0 +1,64 @@
+<XDL>
+
+<Blueprint id="Separator_Cleaning">
+
+    <Hardware>
+        <Component id="waste"          type="waste" />
+        <Component id="separator"      type="separator" />
+        <Component id="flask_EtOAC"    type="flask"/>
+    </Hardware>
+
+    <Parameters>
+
+    </Parameters>
+
+    <Reagents>
+        <Reagent    id="water"           name="water"          role='reagent'/>     
+        <Reagent    id="EtOAC"           name="EtOAC"          role='solvent'/>
+        <Reagent    id="acetone"         name="acetone"        role='solvent'/>
+    </Reagents>
+
+    <Procedure>
+
+        <Add
+            vessel="separator"
+            reagent="EtOAC"
+            volume="20 mL"
+            stir="True"
+            aspiration_speed="150"
+            move_speed='150'
+            dispense_speed='150'
+            priming_volume="5"
+        />
+        <Add
+            vessel="separator"
+            reagent="water"
+            volume="20 mL"
+            stir="True"
+            aspiration_speed="150"
+            move_speed='150'
+            dispense_speed='150'
+            priming_volume="5"
+        />
+        <Transfer
+            from_vessel='flask_EtOAC'
+            to_vessel='waste'
+            through='mgso4'
+            volume='20 mL'
+            aspiration_speed='100'
+            move_speed='100'
+            dispense_speed='100'  />
+        <Transfer
+            from_vessel='separator'
+            to_vessel='waste'
+            volume='50 mL'
+            rinsing_solvent='EtOAC'
+            rinsing_volume='10 mL'
+            rinsing_repeats='2'/>
+        <Repeat repeats="2">
+            <ResetHandling
+                solvent="acetone"/>
+        </Repeat>
+    </Procedure>
+</Blueprint>
+</XDL> 

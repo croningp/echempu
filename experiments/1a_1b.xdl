@@ -1,0 +1,841 @@
+<XDL>
+
+    <Synthesis>
+
+        <Hardware>
+            <Component id="e-cell-cv" type="reactor" />
+            <Component id="e-cell-1" type="reactor" />
+            <Component id="e-cell-2" type="reactor" />
+            <Component id="flask_n2" type="flask" />
+            <Component id="crude1_flask" type="flask" />
+            <Component id="crude2_flask" type="flask" />
+            <Component id="aqueous1_flask" type="flask" />
+            <Component id="aqueous2_flask" type="flask" />
+            <Component id="separator" type="separator" />
+            <Component id="waste1" type="waste" />
+            <Component id="waste2" type="waste" />
+            <Component id="waste3" type="waste" />
+            <Component id="waste4" type="waste" />
+            <Component id="waste5" type="waste" />
+            <Component id="mgso4" type="cartridge" />
+            <Component id="rotavap" type="rotavap" />
+            <Component id="flask_EtOAC" type="flask" />
+            <Component id="flask_hexane" type="flask" />
+            <Component id="flask_ethanol" type="flask" />
+
+        </Hardware>
+
+        <Reagents>
+            <Reagent name="n2" role='reagent' />
+            <Reagent name="5-methoxyindole" role='reagent' />
+            <Reagent name="1-methylindole" role='reagent' />
+            <Reagent name="glyoxylic acid" role='reagent' />
+            <Reagent name="aniline" role='solvent' />
+            <Reagent name="hexane" role='solvent' />
+            <Reagent name="electrolyte" role='solvent' />
+            <Reagent name="water" role='solvent' />
+            <Reagent name="EtOAC" role='solvent' />
+            <Reagent name="acetone" role='solvent' />
+            <Reagent name="ethanol" role='solvent' />
+            <Reagent name="HCl_01M" role='reagent' />
+            <Reagent name="brine" role='reagent' />
+            <Reagent name="crude1" role='reagent' />
+            <Reagent name="crude2" role='reagent' />
+        </Reagents>
+
+        <Procedure>
+            <!-- add reagents --> 
+            
+            <Add
+                vessel="e-cell-cv"
+                reagent="electrolyte"
+                volume="4 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"/>
+            
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+
+            <Add
+                vessel="e-cell-cv"
+                reagent="glyoxylic acid"
+                volume="2.5 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="A"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Add
+                vessel="e-cell-cv"
+                reagent="1-methylindole"
+                volume="2.5 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="A"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Add
+                vessel="e-cell-cv"
+                reagent="aniline"
+                volume="1 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="A"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+           
+            <Transfer 
+                from_vessel="e-cell-cv"
+                to_vessel="e-cell-1"
+                volume="20 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"/>
+            
+            <electrodes_cleaning
+                reactor="e-cell-cv"
+                waste="waste3"
+                queue="B"/>
+        
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2"
+                queue="A"/>
+            <StartStir
+                vessel="e-cell-1" 
+                stir_speed="500"
+                queue="A"/>
+            <Wait
+                time="20 sec"
+                queue="A"/>
+            <!-- # time, q = calculate_reaction_time(mol=3e-4, ne=2, j=2e-3, surface_area=1.5, Fmol=3)
+            # necessary 0.0006 mol of electrons in the reaction necessary charge is 86.8 Coulombs according to
+            Fmol # Time of the reaction is  28945 s, 8 hours
+            # Current necessary is  0.003 A -->
+            
+            <Repeat queue="A">
+                <Electrosynthesis
+                    vessel="e-cell-1"
+                    current="3 mA"
+                    time="30 s"/>
+                <Monitor
+                    target="e-cell-1"
+                    quantity="charge_1"
+                    max="86.8"/>
+            </Repeat>
+
+            <StopStir
+                vessel="e-cell-1" 
+                queue="A"/>
+    
+            <Transfer 
+                from_vessel="e-cell-1"
+                to_vessel="e-cell-cv"
+                volume="7 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="A"/>
+            
+            <Repeat repeats="3" queue="A">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3" queue="A">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3" queue="A">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Transfer 
+                from_vessel="e-cell-cv"
+                to_vessel="e-cell-1"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="A"/>
+       
+            <electrodes_cleaning
+                reactor="e-cell-cv"
+                waste="waste3"
+                queue="A"/>
+        
+            <Transfer 
+                from_vessel="e-cell-1"
+                to_vessel="separator"
+                volume="20 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="A"/>
+            <Add
+                vessel="e-cell-1"
+                reagent="EtOAC"
+                volume="10 mL"
+                stir="True"
+                aspiration_speed="150"
+                move_speed='150'
+                dispense_speed='150'
+                priming_volume="10"
+                queue="A"/>
+            <Stir
+                purpose="none"
+                vessel="e-cell-1"
+                stir_speed="300 rpm"
+                time="1 min"
+                continue_stirring="False"
+                queue="A"/>
+            <Transfer 
+                from_vessel="e-cell-1"
+                to_vessel="separator"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="A"/>
+            <Separate  
+                purpose="wash"
+                from_vessel="e-cell-1"
+                separation_vessel="separator"
+                to_vessel="separator"
+                waste_phase_to_vessel="aqueous1_flask"
+                product_phase="top"
+                solvent="brine"
+                solvent_volume="15 mL"
+                repeats="3"
+                stir_time="2 min"
+                stir_speed="660 rpm"
+                settling_time="2 min"
+                step_volume="0.25 mL"
+                queue="A"/>
+            <Transfer
+                from_vessel='flask_EtOAC'
+                to_vessel='waste4'
+                through='mgso4'
+                volume='20 mL'
+                aspiration_speed='80'
+                move_speed='80'
+                dispense_speed='80'
+                queue="A"  />
+            <Transfer
+                from_vessel='separator'
+                to_vessel='crude1_flask'
+                through='mgso4'
+                volume='50 mL'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='2 mL'
+                rinsing_repeats='2'
+                queue="A"/>
+            <Transfer
+                from_vessel='crude1_flask'
+                to_vessel='rotavap'
+                volume='50'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='10 mL'
+                rinsing_repeats='3'
+                aspiration_speed='100'
+                move_speed='50'
+                dispense_speed='100'  
+                queue="A"/>
+            <Repeat repeats="2" queue="A">
+                <Evaporate
+                    vessel='rotavap'
+                    mode='auto'/>
+            </Repeat>
+        
+            <Separator_Cleaning
+                waste="waste4"
+                separator="separator"
+                flask_EtOAC="flask_EtOAC"
+                queue="A"/> 
+                
+            <Add
+                vessel="e-cell-cv"
+                reagent="electrolyte"
+                volume="4 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="B"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Add
+                vessel="e-cell-cv"
+                reagent="glyoxylic acid"
+                volume="2.5 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="B"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Add
+                vessel="e-cell-cv"
+                reagent="5-methoxyindole"
+                volume="2.5 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="B"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Add
+                vessel="e-cell-cv"
+                reagent="aniline"
+                volume="1 mL"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='40'
+                priming_volume="5"
+                queue="B"/>
+            <CValveMoveToPosition
+                valve_name="valve10"
+                position="1" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2" />
+            <Wait
+                time="120 sec" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0" />
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Transfer 
+                from_vessel="e-cell-cv"
+                to_vessel="e-cell-2"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="B"/>
+        
+            <electrodes_cleaning
+                reactor="e-cell-cv"
+                waste="waste3"
+                queue="B"/>
+       
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2"
+                queue="B"/>
+            <Wait
+                time="120 sec"
+                queue="B"/>
+            <StartStir
+                vessel="e-cell-2" 
+                stir_speed="500"
+                queue="B"/>
+            <!-- # time, q = calculate_reaction_time(mol=3e-4, ne=2, j=2e-3, surface_area=1.5, Fmol=3)
+            # necessary 0.0006 mol of electrons in the reaction necessary charge is 86.8 Coulombs according to Fmol
+            # Time of the reaction is  28945 s, 8 hours
+            # Current necessary is  0.003 A -->
+            
+            <Repeat queue="B">
+                <Electrosynthesis
+                    vessel="e-cell-2"
+                    current="3 mA"
+                    time="30 s"/>
+                <Monitor
+                    target="e-cell-2"
+                    quantity="charge_2"
+                    max="86.8"/>
+            </Repeat>
+            
+            <StopStir
+                vessel="e-cell-2" 
+                queue="B"/>
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0"
+                queue="B"/>
+        
+            <Transfer 
+                from_vessel="e-cell-2"
+                to_vessel="e-cell-cv"
+                volume="7 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="B"/>
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="2"
+                queue="B" />
+            <Wait
+                time="120 sec"
+                queue="B" />
+            <CValveMoveToPosition
+                valve_name="valve9"
+                position="0"
+                queue="B" />
+            <Repeat repeats="3" queue="B">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3" queue="B">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3" queue="B">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "2 V"
+                    voltage_min = "-1.0 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Transfer 
+                from_vessel="e-cell-cv"
+                to_vessel="e-cell-2"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="B"/>
+        
+            <electrodes_cleaning
+                reactor="e-cell-cv"
+                waste="waste3"
+                queue="B"/>
+        
+            <Transfer 
+                from_vessel="e-cell-2"
+                to_vessel="separator"
+                volume="20 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="B"/>
+            <Add
+                vessel="e-cell-2"
+                reagent="EtOAC"
+                volume="10 mL"
+                stir="True"
+                aspiration_speed="150"
+                move_speed='150'
+                dispense_speed='150'
+                priming_volume="10"
+                queue="B"/>
+            <Stir
+                purpose="none"
+                vessel="e-cell-2"
+                stir_speed="300 rpm"
+                time="1 min"
+                continue_stirring="False"
+                queue="B"/>
+            <Transfer 
+                from_vessel="e-cell-2"
+                to_vessel="separator"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"
+                queue="B"/>
+            <Separate  
+                purpose="wash"
+                from_vessel="e-cell-2"
+                separation_vessel="separator"
+                to_vessel="separator"
+                waste_phase_to_vessel="aqueous2_flask"
+                product_phase="top"
+                solvent="brine"
+                solvent_volume="15 mL"
+                repeats="3"
+                stir_time="2 min"
+                stir_speed="660 rpm"
+                settling_time="2 min"
+                step_volume="0.25 mL"
+                queue="B"/>
+            <Transfer
+                from_vessel='flask_EtOAC'
+                to_vessel='waste4'
+                through='mgso4'
+                volume='20 mL'
+                aspiration_speed='80'
+                move_speed='80'
+                dispense_speed='80'
+                queue="B"  />
+            <Transfer
+                from_vessel='separator'
+                to_vessel='crude2_flask'
+                through='mgso4'
+                volume='50 mL'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='2 mL'
+                rinsing_repeats='2'
+                queue="B"/>
+            <Transfer
+                from_vessel='crude3_flask'
+                to_vessel='rotavap'
+                volume='50'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='10 mL'
+                rinsing_repeats='3'
+                aspiration_speed='100'
+                move_speed='50'
+                dispense_speed='100'  
+                queue="B"/>
+            <Repeat repeats="2" queue="B">
+                <Evaporate
+                    vessel='rotavap'
+                    mode='auto'/>
+            </Repeat>
+        
+            <Separator_Cleaning
+                waste="waste4"
+                separator="separator"
+                flask_EtOAC="flask_EtOAC"
+                queue="B"/>
+        </Procedure>
+
+    </Synthesis>
+
+</XDL> 

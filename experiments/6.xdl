@@ -1,0 +1,209 @@
+<XDL>
+    <Synthesis>
+        <Metadata
+                description="electrochemical decarboxylation using rAP (100ms)"
+        />
+
+        <Hardware>
+            <Component id="e-cell-cv"           type="reactor" />
+            <Component id="e-cell-1"            type="reactor" />
+            <Component id="flask_n2"            type="flask" />
+            <Component id="crude1_flask"        type="flask" />
+            <Component id="aqueous1_flask"      type="flask" />
+            <Component id="separator"           type="separator"/>
+            <Component id="waste1"              type="waste"/>
+            <Component id="waste2"              type="waste"/>
+            <Component id="waste3"              type="waste"/>
+            <Component id="waste4"              type="waste"/>
+            <Component id="waste5"              type="waste"/>
+            <Component id="mgso4"               type="cartridge"/>
+            <Component id="rotavap"             type="rotavap"/>
+            <Component id="flask_EtOAC"         type="flask"/>
+
+        </Hardware>
+
+        <Reagents>
+            <Reagent name="n2"                  role='reagent' />
+            <Reagent name="phtalimide"          role='reagent' />
+            <Reagent name="PiVOH"               role='reagent' />
+            <Reagent name="Me4NBF4"             role='reagent' />
+            <Reagent name="acetone"             role='solvent' />
+            <Reagent name="acetonitrile"             role='solvent' />
+            <Reagent name="water"               role='solvent' />
+            <Reagent name="EtOAC"               role='solvent' />
+            <Reagent name="HCl_1M"              role='reagent' />
+            <Reagent name="HCl_01M"             role='reagent' />
+            <Reagent name="brine"               role='reagent' />
+            <Reagent name="crude1"              role='reagent' />
+            <Reagent name="crude2"              role='reagent' />
+            <Reagent name="crude3"              role='reagent' />
+        </Reagents>
+
+        <Procedure>
+        <!-- add reagents -->
+        # reaction 1 electro
+            <Add
+                vessel="e-cell-cv"
+                reagent="phtalimide"
+                volume="3.7 mL"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="e-cell-cv"
+                reagent="Me4NBF4"
+                volume="3 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="e-cell-cv"
+                reagent="PiVOH"
+                volume="3.6 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>  
+            
+        # initial cv reaction 1 electro
+            <Purge
+                vessel="e-cell-cv"
+                gas="n2" 
+                time="2 min"/>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.0 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Transfer 
+                from_vessel="e-cell-cv"
+                to_vessel="e-cell-1"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"/>
+        # clean electrodes
+            <electrodes_cleaning
+                reactor="e-cell-cv"
+                waste="waste3"
+                queue="B"/>
+        # reaction 1 electro power supply
+            <StartPurge
+                vessel="e-cell-cv"
+                gas="n2" />
+            <StartStir
+                vessel="e-cell-1" 
+                stir_speed="300"/>
+
+        # time, q = calculate_reaction_time(mol=0.1e-3, ne=2, current=2e-2, surface_area=2, Fmol=12)
+        # necessary 0.0002 mol of electrons in the reaction necessary charge is 115.78 Coulombs according to Fmol
+        # Time of the reaction is  5789 s, 1.60 hours
+        # Current necessary is  0.02 A.
+            <Repeat>
+                <Electrosynthesis
+                    vessel = "e-cell-1"
+                    current = "20 mA"
+                    time = "20"
+                    switching_frequency = "10" />
+                <Monitor
+                    target="e-cell-1"
+                    quantity="charge_1"
+                    max="115.78"/>
+            </Repeat>
+            <StopStir
+                vessel="e-cell-1" />
+            <StopPurge
+                vessel="e-cell-cv"/>
+            
+        # final cv reaction 1 electro
+            <Transfer 
+                from_vessel="e-cell-1"
+                to_vessel="e-cell-cv"
+                volume="7 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"/>
+            <Purge
+                vessel = "e-cell-cv"
+                gas="n2" 
+                time="2 min"/>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.0 V"
+                    voltage_min = "-0.5 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Repeat repeats="3">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0 V"
+                    voltage_max = "1.5 V"
+                    voltage_min = "-1 V"
+                    voltage_final = "0 V"
+                    voltage_interval = "0.01 V"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <Transfer 
+                from_vessel="e-cell-cv"
+                to_vessel="reactor1"
+                volume="15 mL"
+                aspiration_speed="40"
+                move_speed="40"
+                dispense_speed="40"/>
+        # clean electrodes
+            <electrodes_cleaning
+                reactor="e-cell-cv"
+                waste="waste3"
+                queue="A"/>
+            
+            <Transfer
+                from_vessel="e-cell-cv"
+                to_vessel='rotavap'
+                volume='50'
+                rinsing_solvent='acetonitrile'
+                rinsing_volume='5 mL'
+                rinsing_repeats='2'
+                aspiration_speed='100'
+                move_speed='50'
+                dispense_speed='100'  />
+            <Repeat repeats="3">
+                <Evaporate
+                    vessel='rotavap'
+                    mode='auto'/>
+            </Repeat>
+        
+            <Repeat repeats="2">
+                <ResetHandling
+                    solvent="acetone" 
+                    queue="A"/>
+            </Repeat>
+
+
+        </Procedure>
+
+    </Synthesis>
+
+</XDL> 

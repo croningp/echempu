@@ -1,0 +1,249 @@
+<XDL>
+
+    <Synthesis>
+
+        <Hardware>
+            <Component id="cathode"             type="reactor" />
+            <Component id="anode"               type="reactor" />
+            <Component id="reactorH2"           type="filter" />
+            <Component id="reactorO2"           type="reactor" />
+            <Component id="flask_n2"            type="flask" />
+            <Component id="crude1_flask"        type="flask" />
+            <Component id="crude2_flask"        type="flask" />
+            <Component id="aqueous1_flask"      type="flask" />
+            <Component id="aqueous2_flask"      type="flask" />
+            <Component id="waste1"              type="waste"/>
+            <Component id="waste2"              type="waste"/>
+            <Component id="waste3"              type="waste"/>
+            <Component id="waste4"              type="waste"/>
+            <Component id="waste5"              type="waste"/>
+            <Component id="mgso4"               type="cartridge"/>
+            <Component id="rotavap"             type="rotavap"/>
+            <Component id="flask_EtOAC"         type="flask"/>
+            <Component id="flask_hexane"        type="flask"/>
+        </Hardware>
+
+        <Reagents>
+            <Reagent name="transcinnamic acid"  role='reagent' /> 
+            <Reagent name="TEMPO"               role='reagent' /> 
+            <Reagent name="CuOTf"               role='reagent' />
+            <Reagent name="bpy"                 role='reagent' />
+            <Reagent name="NMI"                 role='reagent' />    
+            <Reagent name="n2"                  role='reagent' />
+            <Reagent name="mecn"                role='reagent' />
+            <Reagent name="aminobenzyl alcohol" role='reagent' /> 
+            <Reagent name="electrolyte"         role='reagent' />
+            <Reagent name="water"               role='solvent' />
+            <Reagent name="EtOAC"               role='reagent' />
+            <Reagent name="meoh"                role='reagent' />
+        </Reagents>
+
+        <Procedure>
+        <!-- add reagents -->
+            
+        # Evacuate and Refill 
+            <EvacuateAndRefill
+                vessel="reactorO2"
+                gas="n2" 
+                repeats="3"/>
+            <EvacuateAndRefill
+                vessel="reactorH2"
+                gas="n2" 
+                repeats="3"/>
+            <EvacuateAndRefill
+                vessel="cathode"
+                gas="n2" 
+                repeats="3"/>
+
+        # reaction  
+            <Add
+                vessel="anode"
+                reagent="electrolyte"
+                volume="15 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="cathode"
+                reagent="electrolyte"
+                volume="15 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="anode"
+                reagent="electrolyte"
+                volume="10 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="cathode"
+                reagent="electrolyte"
+                volume="10 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="reactorH2"
+                reagent="transcinnamic acid"
+                volume="10 mL"
+                port="bottom" 
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="reactorO2"
+                reagent="aminobenzyl alcohol"
+                volume="5 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='40'
+                priming_volume="5"/>
+            <Add
+                vessel="reactorO2"
+                reagent="NMI"
+                volume="5 mL"
+                stir="True"
+                aspiration_speed="40"
+                move_speed='40'
+                dispense_speed='10'
+                priming_volume="5"/>
+
+            # electro
+            <Purge
+                vessel="cathode"
+                gas="n2" 
+                time="180 s"/>
+            <Purge
+                vessel="reactorH2"
+                gas="n2" 
+                time="180 s"/>
+            <Purge
+                vessel="reactorO2"
+                gas="n2" 
+                time="180 s"/>
+            <StartStir
+                vessel="reactorO2" 
+                stir_speed="300"/>
+            <StartStir
+                vessel="cathode" 
+                stir_speed="300"/>
+
+            <Electrosynthesis
+                vessel = "cathode"
+                current = "15 mA"
+                time = "10800"/>
+            
+            <StopStir
+                vessel="reactorO2" />
+            <StopStir
+                vessel="cathode"/>
+                
+            # workup
+            <Transfer
+                from_vessel='flask_EtOAC'
+                to_vessel='waste4'
+                through='cartridge'
+                volume='15 mL'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='5 mL'
+                rinsing_repeats='2'
+                aspiration_speed="60"
+                move_speed='60'
+                dispense_speed='60'/> 
+            <Transfer
+                from_vessel='reactorO2'
+                to_vessel='crude1_flask'
+                through='cartridge'
+                volume='15 mL'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='10 mL'
+                rinsing_repeats='2'
+                aspiration_speed="10"
+                move_speed='10'
+                dispense_speed='10'/>
+            <Add
+                vessel="reactorO2"
+                reagent="EtOAC"
+                volume="10 mL"
+                stir="True"
+                aspiration_speed="60"
+                move_speed='60'
+                dispense_speed='60'
+                priming_volume="5"
+                queue="A"/>            
+            <Transfer
+                from_vessel='reactorO2'
+                to_vessel='crude1_flask'
+                through='cartridge'
+                volume='15 mL'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='10 mL'
+                rinsing_repeats='2'
+                aspiration_speed="60"
+                move_speed='60'
+                dispense_speed='60'
+                queue="A"/>
+            <Transfer
+                from_vessel='flask_EtOAC'
+                to_vessel='crude2_flask'
+                through='cartridge'
+                volume='10 mL'
+                rinsing_solvent='EtOAC'
+                rinsing_volume='5 mL'
+                rinsing_repeats='2'
+                aspiration_speed="60"
+                move_speed='60'
+                dispense_speed='60'
+                queue="A"/>  
+            <Transfer
+                from_vessel='reactorH2'
+                to_vessel='crude2_flask'
+                from_port="bottom" 
+                volume='10 mL'
+                rinsing_solvent='meoh'
+                rinsing_volume='10 mL'
+                rinsing_repeats='2'
+                aspiration_speed="10"
+                move_speed='10'
+                dispense_speed='10'
+                queue="A"/>
+            <Add
+                vessel="reactorH2"
+                reagent="meoh"
+                volume="10 mL"
+                stir="True"
+                aspiration_speed="60"
+                move_speed='60'
+                dispense_speed='60'
+                priming_volume="5"
+                queue="A"/> 
+            <Transfer
+                from_vessel='reactorH2'
+                to_vessel='crude2_flask'
+                from_port="bottom" 
+                volume='10 mL'
+                rinsing_solvent='meoh'
+                rinsing_volume='5 mL'
+                rinsing_repeats='2'
+                aspiration_speed="60"
+                move_speed='60'
+                dispense_speed='60'
+                queue="A"/>
+
+        </Procedure>
+
+    </Synthesis>
+
+</XDL> 

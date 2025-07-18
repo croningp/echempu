@@ -1,0 +1,68 @@
+<XDL>
+    
+    <Blueprint id="electrodes_cleaning">
+
+    <Hardware>
+        <Component id="reactor"          type="reactor" />
+        <Component id="waste"            type="flask" />
+    </Hardware>
+
+    <Parameters>
+
+    </Parameters>
+
+    <Reagents>
+        <Reagent    id="acetone"        name="acetone"      role='solvent'   />     
+        <Reagent    id="H2SO4_01M"      name="H2SO4_01M"    role='solvent'   />
+        <Reagent    id="water"          name="water"        role='solvent'   />
+    </Reagents>
+
+    <Procedure>
+
+        <CleanVessel
+            vessel="reactor"
+            solvent="acetone"
+            volume="7 mL"
+            dry="False"/>
+        <Add
+            vessel="reactor"
+            reagent="H2SO4_01M"
+            volume="10 mL"
+            stir="False"
+            aspiration_speed="40"
+            move_speed='40'
+            dispense_speed='40'
+            priming_volume="5"/> 
+            
+        <Repeat repeats="10">
+            <RunCyclicVoltammetry
+                vessel = "reactor"
+                voltage_initial = "0 V"
+                voltage_min = "-0.5 V"
+                voltage_max = "1.5 V"
+                voltage_final = "0 V"
+                voltage_interval = "0.01 V"
+                scan_rate = "0.1" />
+        </Repeat>
+        
+        <Transfer 
+            from_vessel="reactor"
+            to_vessel="waste"
+            volume="12 mL"
+            aspiration_speed="40"
+            move_speed="40"
+            dispense_speed="40"/>
+        <CleanVessel
+            vessel="reactor"
+            solvent="water"
+            volume="10 mL"
+            dry="False"/>
+        <CleanVessel
+            vessel="reactor"
+            solvent="acetone"
+            volume="10 mL"
+            dry="False"
+            repeats="2"/>
+    </Procedure>
+</Blueprint>
+</XDL> 

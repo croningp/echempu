@@ -1,0 +1,297 @@
+<XDL>
+
+    <Synthesis>
+
+        <Hardware>
+            <Component id="e-cell-cv"           type="reactor" />
+            <Component id="flask_n2"            type="flask" />
+            <Component id="flask_mecn"          type="flask" />
+            <Component id="waste1"              type="flask" />
+            <Component id="waste2"              type="flask" />
+        </Hardware>
+
+        <Reagents>
+            <Reagent name="n2"                  role='reagent' />
+            <Reagent name="pd"                  role='reagent' />
+            <Reagent name="co"                  role='reagent' />
+            <Reagent name="ni"                  role='reagent' />
+            <Reagent name="pyrrole"             role='reagent' />
+            <Reagent name="GO"                  role='reagent' />
+            <Reagent name="pyrroleGO"           role='solvent' />
+            <Reagent name="naclo4"              role='reagent' /> 
+            <Reagent name="electrolyte_1"       role='reagent' />
+            <Reagent name="electrolyte_2"       role='reagent' />
+            <Reagent name="acetone"             role='solvent' />
+            <Reagent name="water"               role='solvent' />
+            <Reagent name="mecn"                role='reagent' />
+        </Reagents>
+
+    <Procedure>
+        <!-- add reagents -->
+        # blank 
+        <Add
+            vessel="e-cell-cv"
+            reagent="electrolyte_2"
+            volume="8 mL"
+            stir="True"
+            aspiration_speed="100"
+            move_speed='100'
+            dispense_speed='40'
+            priming_volume="10"/>
+        # OCV, CV and PEIS blank
+
+        <RunOpenCircuitVoltage
+            vessel = "e-cell-cv"
+            time = "180"/>
+        <Repeat repeats="3">
+            <RunCyclicVoltammetry
+                vessel = "e-cell-cv"
+                voltage_initial = "0"
+                voltage_min = "-1"
+                voltage_max = "1"
+                voltage_final = "0"
+                voltage_interval = "0.01"
+                scan_rate = "0.05" />
+        </Repeat>
+        <RunPEIS
+            vessel = "e-cell-cv"
+            voltage = "0"
+            voltage_amplitude = "0.1"
+            frequency_initial = "100000"
+            frequency_final = "0.1"
+            frequency_steps = "100"
+            time = "1"/>
+        # Clean solution
+        <cell_cleaning 
+            reactor="e-cell-cv"
+            waste="waste2"/> -->
+        # reaction pyrrole GO electrodeposition
+        <Repeat repeats="2">
+        <!-- deposition pyrrole -->
+            <Add
+                vessel="e-cell-cv"
+                reagent="naclo4"
+                volume="4 mL"
+                stir="True"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='100'
+                priming_volume="5"/>
+            <Add
+                vessel="e-cell-cv"
+                reagent="pyrrole"
+                volume="4 mL"
+                stir="True"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='100'
+                priming_volume="5"/>
+            <StartStir
+                vessel="e-cell-cv" 
+                stir_speed="200"/>
+            <Purge
+                vessel="e-cell-cv"
+                gas="n2"
+                time="120 sec" />
+            <StopStir
+                vessel="e-cell-cv" />
+            <Repeat repeats="10">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0"
+                    voltage_min = "-1"
+                    voltage_max = "1"
+                    voltage_final = "0"
+                    voltage_interval = "0.01"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <StartStir
+                vessel="e-cell-cv" 
+                stir_speed="200"/>
+            <RunChronoamperometry
+                vessel = "e-cell-cv"
+                voltage = "0.8"
+                time = "600"/>
+            <Purge
+                vessel="e-cell-cv"
+                gas="n2"
+                time="120 sec" />
+            <StopStir
+                vessel="e-cell-cv" />
+            <Repeat repeats="10">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0"
+                    voltage_min = "-1"
+                    voltage_max = "1"
+                    voltage_final = "0"
+                    voltage_interval = "0.01"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <StopStir
+                vessel="e-cell-cv" />
+            <RunPEIS
+                vessel = "e-cell-cv"
+                voltage = "0"
+                voltage_amplitude = "0.1"
+                frequency_initial = "100000"
+                frequency_final = "0.1"
+                frequency_steps = "100"
+                time = "1"/>
+            # clean solution
+            <cell_cleaning 
+                reactor="e-cell-cv"
+                waste="waste2"/>
+        <!-- deposition GO -->
+            <Add
+                vessel="e-cell-cv"
+                reagent="naclo4"
+                volume="4 mL"
+                stir="True"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='100'
+                priming_volume="5"/>
+            <Add
+                vessel="e-cell-cv"
+                reagent="GO"
+                volume="4 mL"
+                stir="True"
+                aspiration_speed="100"
+                move_speed='100'
+                dispense_speed='100'
+                priming_volume="5"/>
+            <StartStir
+                vessel="e-cell-cv" 
+                stir_speed="200"/>
+            <Purge
+                vessel="e-cell-cv"
+                gas="n2"
+                time="120 sec" />
+            <StopStir
+                vessel="e-cell-cv" />
+            <Repeat repeats="10">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0"
+                    voltage_min = "-1"
+                    voltage_max = "1"
+                    voltage_final = "0"
+                    voltage_interval = "0.01"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <StartStir
+                vessel="e-cell-cv" 
+                stir_speed="200"/>
+            <RunChronoamperometry
+                vessel = "e-cell-cv"
+                voltage = "0.8"
+                time = "600"/>
+            <Purge
+                vessel="e-cell-cv"
+                gas="n2"
+                time="120 sec" />
+            <StopStir
+                vessel="e-cell-cv" />
+            <Repeat repeats="10">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0"
+                    voltage_min = "-1"
+                    voltage_max = "1"
+                    voltage_final = "0"
+                    voltage_interval = "0.01"
+                    scan_rate = "0.05" />
+            </Repeat>
+            <RunPEIS
+                vessel = "e-cell-cv"
+                voltage = "0"
+                voltage_amplitude = "0.1"
+                frequency_initial = "100000"
+                frequency_final = "0.1"
+                frequency_steps = "100"
+                time = "1"/>
+        # clean solution
+            <cell_cleaning 
+                reactor="e-cell-cv"
+                waste="waste2"/>
+        </Repeat>
+        # blank after reaction-1
+        <Add
+            vessel="e-cell-cv"
+            reagent="electrolyte_2"
+            volume="8 mL"
+            stir="True"
+            aspiration_speed="100"
+            move_speed='100'
+            dispense_speed='100'
+            priming_volume="10"/>
+        # CV and EIS blank after reaction-1
+        <Repeat repeats="3">
+            <RunCyclicVoltammetry
+                vessel = "e-cell-cv"
+                voltage_initial = "0"
+                voltage_min = "-0.3"
+                voltage_max = "0.6"
+                voltage_final = "0"
+                voltage_interval = "0.01"
+                scan_rate = "0.05" />
+        </Repeat>
+        <RunPEIS
+            vessel = "e-cell-cv"
+            voltage = "0"
+            voltage_amplitude = "0.1"
+            frequency_initial = "100000"
+            frequency_final = "0.1"
+            frequency_steps = "100"
+            time = "1"/>
+    # Clean solution
+        <cell_cleaning 
+            reactor="e-cell-cv"
+            waste="waste2"/>
+    # Add Pd
+        <metal_electrodeposition
+            reactor="e-cell-cv"
+            metal="pd"/>
+    # clean solution
+        <cell_cleaning 
+            reactor="e-cell-cv"
+            waste="waste2"/>
+        <Add
+            vessel="e-cell-cv"
+            reagent="electrolyte_2"
+            volume="8 mL"
+            stir="True"
+            aspiration_speed="100"
+            move_speed='100'
+            dispense_speed='100'
+            priming_volume="10"/>
+    # CV and EIS blank after reaction-1
+        <Repeat repeats="3">
+            <RunCyclicVoltammetry
+                vessel = "e-cell-cv"
+                voltage_initial = "0"
+                voltage_min = "-0.3"
+                voltage_max = "0.6"
+                voltage_final = "0"
+                voltage_interval = "0.01"
+                scan_rate = "0.05" />
+        </Repeat>
+        <RunPEIS
+            vessel = "e-cell-cv"
+            voltage = "0"
+            voltage_amplitude = "0.1"
+            frequency_initial = "100000"
+            frequency_final = "0.1"
+            frequency_steps = "100"
+            time = "1"/>
+    # clean solution
+        <cell_cleaning 
+            reactor="e-cell-cv"
+            waste="waste2"/>
+            
+        </Procedure>
+
+    </Synthesis>
+
+</XDL> 

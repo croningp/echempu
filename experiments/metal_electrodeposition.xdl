@@ -1,0 +1,68 @@
+<XDL>
+    
+    <Blueprint id="metal_electrodeposition">
+
+    <Hardware>
+        <Component id="reactor"          type="reactor" />
+    </Hardware>
+
+    <Parameters>
+
+    </Parameters>
+
+    <Reagents>
+            <Reagent id="n2"             name="n2"            role='reagent' />
+            <Reagent id="metal"     role='reagent'/>
+            <Reagent id="pyrrole"        name="pyrrole"       role='reagent' />
+            <Reagent id="naclo4"         name="naclo4"        role='reagent' /> 
+            <Reagent id="electrolyte_1"  name="electrolyte_1" role='reagent' />
+            <Reagent id="electrolyte_2"  name="electrolyte_2" role='reagent' />
+            <Reagent id="water"          name="water"         role='solvent' />
+    </Reagents>
+
+    <Procedure>
+
+        <Add
+            vessel="reactor"
+            reagent="metal"
+            volume="8 mL"
+            stir="True"
+            aspiration_speed="100"
+            move_speed='100'
+            dispense_speed='100'
+            priming_volume="10"/>
+        <StartStir
+            vessel="reactor" 
+            stir_speed="200"/>
+        <Purge
+            vessel="reactor"
+            gas="n2"
+            time="120 sec" />
+        <RunChronoamperometry
+            vessel = "reactor"
+            voltage = "0.8"
+            time = "180"/>
+        <StopStir
+            vessel="reactor" /> 
+        <Repeat repeats="10">
+                <RunCyclicVoltammetry
+                    vessel = "e-cell-cv"
+                    voltage_initial = "0"
+                    voltage_min = "-0.3"
+                    voltage_max = "1"
+                    voltage_final = "0"
+                    voltage_interval = "0.01"
+                    scan_rate = "0.05" />
+        </Repeat>
+        <RunPEIS
+            vessel = "e-cell-cv"
+            voltage = "0"
+            voltage_amplitude = "0.1"
+            frequency_initial = "100000"
+            frequency_final = "0.1"
+            frequency_steps = "100"
+            time = "1"/>
+        
+    </Procedure>
+</Blueprint>
+</XDL> 
